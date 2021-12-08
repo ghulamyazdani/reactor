@@ -1,6 +1,8 @@
 import { Component } from "react";
 import { withRouter } from "react-router-dom"; // eslint-disable-line
 import Carousel from "./Carousel";
+import ErrorBoundary from "./ErrorBoundary";
+import ThemeContext from "./ThemeContext";
 
 class Details extends Component {
   state = { loading: true };
@@ -49,11 +51,22 @@ class Details extends Component {
           <h1>{name}</h1>
           <h2>{`${animal}-${breed}-${city},${state}`}</h2>
           <p>{description}</p>
-          <button>Adopt {name}</button>
+          <ThemeContext.Consumer>
+            {([theme]) => (
+              <button style={{ backgroundColor: theme }}>Adopt {name}</button>
+            )}
+          </ThemeContext.Consumer>
         </div>
       </div>
     );
   }
 }
+const DetailsWithRouter = withRouter(Details);
 
-export default withRouter(Details);
+export default function DetailsErrorBoundary(props) {
+  return (
+    <ErrorBoundary>
+      <DetailsWithRouter {...props} />
+    </ErrorBoundary>
+  );
+}
