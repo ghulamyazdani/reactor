@@ -26,7 +26,13 @@ const App = () => {
   const theme = useState("green");
   return (
     <ThemeContext.Provider value={theme}>
-      <div>
+      <div
+        className="p-0 m-0"
+        style={{
+          background:
+            "url(http://pets-images.dev-apis.com/pets/wallpaperA.jpg)",
+        }}
+      >
         <Router>
           <header>
             <Link to="/">

@@ -4,22 +4,41 @@ import React,{ useState} from 'react';
 export default function Todo() {
     const [todos,setTodos] = useState([]);
     const [input,setInput] = useState("");
+    const todosLS = JSON.parse(localStorage.getItem("todos"));
+    
+
+    
     function remove(index){
         // setTodos(todos.filter(item => item !== todos[index]))
         
         const temp = [...todos];
-        temp.splice(index);
+        temp.splice(index,1);
         setTodos(temp);
         console.log(temp);
+        updateLS();
+        
     }
-    
+    function updateLS() {
+        const todosEl = document.querySelectorAll("span");
+      
+        const todosArr = [];
+      
+        todosEl.forEach((todoEl) => {
+          todosArr.push(todoEl.innerText,);
+        });
+        localStorage.setItem("todos", JSON.stringify(todosArr));
+        console.log(todosEl);
+      }
     return (
         <div>
             <form onSubmit={
                 (e)=>{
                     e.preventDefault();
                     if(input){
+                        
                         setTodos([...todos,input])
+                        updateLS();
+                        
                     }
 
                 }
@@ -30,7 +49,13 @@ export default function Todo() {
             </form>
             {todos?todos.map((todo,index) =>(
                 <div key={index}>
-                <div >{todo}</div>
+                <span>{todo}</span>
+                <button onClick={()=>{remove(index)}}><i className="fas fa-times"></i></button>
+                </div>
+    )):<></>}
+    {todos?todosLS.map((todo,index) =>(
+                <div key={index}>
+                <span>{todo}</span>
                 <button onClick={()=>{remove(index)}}><i className="fas fa-times"></i></button>
                 </div>
     )):<></>}
