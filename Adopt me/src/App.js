@@ -34,9 +34,11 @@ const App = () => {
         }}
       >
         <Router>
-          <header>
+          <header className="w-full mb-10 text-center p-7 bg-gradient-to-b from-purple-400 via-pink-500 to-red-500">
             <Link to="/">
-              <h1>Adopt Me!</h1>
+              <h1 className="text-6xl text-white hover:text-gray-200">
+                Adopt Me!
+              </h1>
             </Link>
           </header>
           <Switch>
